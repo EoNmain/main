@@ -1,0 +1,16 @@
+// {
+//   "parser": "@babel/eslint-parser",
+//   "parserMenu": { "requireConfigFile": "false" },
+//   "babelMenu": { "configFile": "./.babelrc" }
+// }
+
+{
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+      "requireConfigFile": true,
+      "babelOptions": {
+        "configFile": "./.babelrc"
+      }
+    }
+  }
+  
