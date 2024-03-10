@@ -90,6 +90,7 @@ export default function Write() {
   // 상태 변수와 설정 함수를 선언합니다.
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [type, setType] = useState('');
 
   // 폼의 입력값이 변경될 때마다 상태 변수를 업데이트합니다.
   const handleTitleChange = (e) => {
@@ -100,14 +101,33 @@ export default function Write() {
     setContent(e.target.value);
   };
 
+  const handleTypeChange = (e) => {
+    setType(e.target.value);
+  };
+
   // submit 버튼을 클릭하면 axios.post 메소드를 호출합니다.
   const handleSubmit = async () => {
+
     try {
+      const url = 'http://localhost:3000/post';
       // 데이터베이스의 API 엔드포인트와 데이터 객체를 인자로 넘깁니다.
-      const response = await axios.post('https://database.com/api/posts', {
+      const userResponse = await axios.get('http://localhost:3000/user/1');
+      const userUid = userResponse.data.uid;
+      const userName = userResponse.data.name;
+
+      const response = await axios.post
+      (
+        url,
+        {
+        uid:userUid,
         title: title,
         content: content,
-      });
+        writer: userName,
+        type: "type",
+        file: "www.",
+        picture: "www."
+        }
+      );
       // 응답이 성공적이면 콘솔에 결과를 출력하고, 적절한 처리를 합니다.
       console.log(response.data);
       alert('글이 성공적으로 등록되었습니다.');
@@ -117,6 +137,7 @@ export default function Write() {
       alert('글 등록에 실패했습니다.');
     }
   };
+
 
   const [selected, setSelected] = useState(boardlist[3]);
 

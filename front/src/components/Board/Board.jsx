@@ -12,12 +12,27 @@ export default function Board() {
     // 추가적인 더미 데이터를 필요에 따라 채워넣을 수 있습니다.
   ]);
 
+  useEffect(() => {
+    async function getData() {
+      try {
+        const url = 'http://localhost:3000/post';
+        const response = await axios.get(
+          url
+          );
+        setPostData(response.data); // 데이터베이스에서 받은 데이터로 상태 업데이트
+      } catch (error) {
+        console.error('Post data failed', error);
+      }
+    }
+    getData();
+  }, []);
+
   const columns = useMemo(
     () => [
-      { Header: "#", accessor: "id", style: { color: "semiTitle" } },
-      { Header: "Title", accessor: "title", style: { color: "semiTitle" } }, // 글 제목 변경
-      { Header: "Author", accessor: "author", style: { color: "semiTitle" } }, // 올린 사람 변경
-      { Header: "Date", accessor: "date", style: { color: "semiTitle" } }, // 올린 날짜 변경
+      { Header: "글 순서", accessor: "pid" },
+      { Header: "제목", accessor: "title" }, // 글 제목 변경
+      { Header: "작성자", accessor: "writer" }, // 올린 사람 변경
+      { Header: "생성 날짜", accessor: "createdDate" }, // 올린 날짜 변경
     ],
     []
   );

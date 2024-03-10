@@ -12,7 +12,7 @@ export default function BoardListNavTabs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://example.com/api/data");
+        const response = await axios.get("http://localhost:3000/post");
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

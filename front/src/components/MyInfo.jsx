@@ -2,12 +2,15 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 export default function Myinfo() {
-  const [userData, setUserData] = useState({ name: '', cohort: '', email: '' });
+  const [userData, setUserData] = useState({ name: '', period: '', email: '' });
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get('');
+        const url = 'http://localhost:3000/user/1';
+        const response = await axios.get(
+          url
+          );
         setUserData(response.data); // 데이터베이스에서 받은 데이터로 상태 업데이트
       } catch (error) {
         console.error('Fetching data failed', error);
@@ -40,7 +43,7 @@ export default function Myinfo() {
               기수
             </dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
-              {userData.cohort}
+              {userData.period}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
