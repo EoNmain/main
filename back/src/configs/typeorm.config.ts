@@ -5,10 +5,10 @@ export const typeORMConfigPost : TypeOrmModuleOptions= {
     //name: 'default',
     type: 'mysql',
     host: 'localhost',
-    port: 3305,
+    port: 3306,
     username: 'root',
     password: 'password',
-    database: 'post',
+    database: 'auth_service',
     entities: [
         Post
       ],

@@ -9,6 +9,7 @@ import { DatabaseModule } from './common/database/database.module';
 import { CryptoCliModule } from './crypto/crypto-cli.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { PostModule } from './post/post.module';
 
 
 @Module({
@@ -27,6 +28,7 @@ import { ServeStaticModule } from '@nestjs/serve-static';
     AuthModule,
     CryptoModule,
     CryptoCliModule,
+    PostModule,
   ],
   controllers: [],
   providers: [],
