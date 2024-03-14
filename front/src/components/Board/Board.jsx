@@ -5,21 +5,18 @@ import Table from "react-bootstrap/Table";
 import BoardListNav from "./BoardListNav";
 
 export default function Board() {
-  // 데이터 상태 초기화 및 더미 데이터 채우기
-  const [data] = useState([
+  // 데이터 상태 및 상태 업데이트 함수 정의
+  const [data, setData] = useState([
     { id: 1, title: "First Post", author: "John Doe", date: "2024-02-07" },
     { id: 2, title: "Second Post", author: "Jane Smith", date: "2024-02-06" },
-    // 추가적인 더미 데이터를 필요에 따라 채워넣을 수 있습니다.
   ]);
 
   useEffect(() => {
     async function getData() {
       try {
         const url = 'http://localhost:3000/post';
-        const response = await axios.get(
-          url
-          );
-        setPostData(response.data); // 데이터베이스에서 받은 데이터로 상태 업데이트
+        const response = await axios.get(url);
+        setData(response.data); // 데이터베이스에서 받은 데이터로 상태 업데이트
       } catch (error) {
         console.error('Post data failed', error);
       }
@@ -30,9 +27,9 @@ export default function Board() {
   const columns = useMemo(
     () => [
       { Header: "글 순서", accessor: "pid" },
-      { Header: "제목", accessor: "title" }, // 글 제목 변경
-      { Header: "작성자", accessor: "writer" }, // 올린 사람 변경
-      { Header: "생성 날짜", accessor: "createdDate" }, // 올린 날짜 변경
+      { Header: "제목", accessor: "title" },
+      { Header: "작성자", accessor: "writer" },
+      { Header: "생성 날짜", accessor: "createdDate" },
     ],
     []
   );
@@ -43,7 +40,7 @@ export default function Board() {
 
   return (
     <div style={{ display: "flex" }}>
-      <div class="text-semiTitle" style={{ flex: 1 }}>
+      <div className="text-semiTitle" style={{ flex: 1 }}>
         <BoardListNav />
       </div>
       <div style={{ flex: 4, position: "relative" }}>
@@ -65,11 +62,9 @@ export default function Board() {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    return (
+                  {row.cells.map((cell) => (
                       <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
+                  ))}
                 </tr>
               );
             })}

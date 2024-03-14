@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 export default function Myinfo() {
-  const [userData, setUserData] = useState({ name: '', period: '', email: '' });
+  const [userData, setUserData] = useState({ name: '', cohort: '', email: '', studentnum:'', phonenum:'' });
 
   useEffect(() => {
     async function fetchData() {
@@ -40,10 +40,26 @@ export default function Myinfo() {
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-hover">
+              학번
+            </dt>
+            <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
+              {userData.studentnum}
+            </dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-hover">
               기수
             </dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
               {userData.period}
+            </dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-hover">
+              전화번호
+            </dt>
+            <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
+              {userData.phonenum}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
@@ -54,7 +70,6 @@ export default function Myinfo() {
               {userData.email}
             </dd>
           </div>
-          {/* 여기에 필요한 경우 추가 정보를 렌더링할 수 있습니다 */}
         </dl>
       </div>
     </div>

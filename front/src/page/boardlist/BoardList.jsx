@@ -2,7 +2,6 @@
 import React from 'react';
 import Layout from '../../layout/Layout';
 import BoarderListLayout from '../../components/Board/BoardListLayout'
-import BoardListNav from '../../components/Board/BoardListNav'
 import BoardListNavTabs from '../../components/Board/BoardListNavTabs';
 import BoardListPageNum from '../../components/Board/BoardListPageNum';
 function BoardList(){
@@ -12,8 +11,6 @@ function BoardList(){
     <BoarderListLayout/>
     
     <BoardListNavTabs />
-  
-    {/* <BoardListNav /> */}
     
     <BoardListPageNum />
     

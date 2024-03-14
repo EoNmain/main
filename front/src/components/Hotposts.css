@@ -1,6 +1,4 @@
 .hotposts-container {
-  position: fixed;
-  top: 80px; /*높이 조정 */
   right: 5%; /* 오른쪽 가장자리에서 % 떨어진 위치 */
   width: 25vw; /* 화면 너비의 %를 차지 */
   max-width: 500px; /* 최대 너비 */

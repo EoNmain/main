@@ -1,5 +1,4 @@
 import React from 'react'
-import { Icon, Pagination } from 'semantic-ui-react'
 
 // 페이징 처리를 위한 컴포넌트
 const BoardListPageNum = () => (

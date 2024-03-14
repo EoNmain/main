@@ -73,7 +73,8 @@ function SignIn() {
         <p className="mt-10 text-center text-sm text-gray-500">
           <span style={{ fontSize: "20px" }}>SignUp to Github</span>
           <a
-            href="https://github.com/login"
+            href="https://github.com/login/oauth/authorize?client_id=06310df2aadaef6f793a&scope=read%3Auser%20user%3Aemail
+            "
             style={{ display: "block", margin: "auto", width: "fit-content" }}
           >
             <img

@@ -5,7 +5,7 @@ import Footer from './Footer';
 
 function Layout({ children }) {
   return (
-    <div class='bg-backDark'>
+    <div className='bg-backDark'>
       <Header />
       {children}
   
