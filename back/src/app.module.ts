@@ -10,6 +10,11 @@ import { CryptoCliModule } from './crypto/crypto-cli.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { PostModule } from './post/post.module';
+import { LoginModule } from './login/login.module';
+import { ReplyModule } from './reply/reply.module';
+import { LikeModule } from './like/like.module';
+import { CommentModule } from './comment/comment.module';
+import { AdminModule } from './admin/admin.module';
 
 
 @Module({
@@ -29,6 +34,11 @@ import { PostModule } from './post/post.module';
     CryptoModule,
     CryptoCliModule,
     PostModule,
+    LoginModule,
+    ReplyModule,
+    LikeModule,
+    CommentModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],
