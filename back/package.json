@@ -32,7 +32,7 @@
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^4.0.1",
     "@nestjs/serve-static": "^4.0.1",
-    "@nestjs/swagger": "^7.2.0",
+    "@nestjs/swagger": "^7.3.0",
     "@nestjs/typeorm": "^10.0.2",
     "aws": "^0.0.3-2",
     "aws-sdk": "^2.1568.0",
