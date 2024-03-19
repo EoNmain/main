@@ -8,19 +8,8 @@ export default function Board() {
   // 데이터 상태 및 상태 업데이트 함수 정의
   const [data, setData] = useState([
     {
-      /*pid: null,
-      uid: 1,
-      title: '1번 제목',
-      writer: '송현승',
-      content: '1번 게시글',
-      createdDate: '2024-03-19T11:10:01.214Z',
-      editDate: '2024-03-19T02:10:01.218Z',
-      recommand: 0,
-      check: 0,
-      type: 'assignment',
-      file: 'www',
-      picture: 'www.',
-    */},
+
+    },
   ]);
 
   useEffect(() => {
