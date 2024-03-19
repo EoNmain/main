@@ -8,7 +8,7 @@ export default function Board() {
   // 데이터 상태 및 상태 업데이트 함수 정의
   const [data, setData] = useState([
     {
-
+                                
     },
   ]);
 
