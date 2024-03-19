@@ -8,7 +8,7 @@ export default function Board() {
   // 데이터 상태 및 상태 업데이트 함수 정의
   const [data, setData] = useState([
     {
-      pid: 1,
+      /*pid: null,
       uid: 1,
       title: '1번 제목',
       writer: '송현승',
@@ -20,7 +20,7 @@ export default function Board() {
       type: 'assignment',
       file: 'www',
       picture: 'www.',
-    },
+    */},
   ]);
 
   useEffect(() => {
