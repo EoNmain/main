@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 export default function Myinfo() {
-  const [userData, setUserData] = useState({ name: '', cohort: '', email: '', studentnum:'', phonenum:'' });
+  const [userData, setUserData] = useState({});
 
   useEffect(() => {
     async function fetchData() {
