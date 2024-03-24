@@ -7,7 +7,7 @@ import BoardList from './page/boardlist/BoardList';
 import MyPage from './page/MyPage';
 import PasswdPage from './page/PasswdPage';
 import Write from './page/boardlist/Write';
-import Board from './page/boardlist/Board';
+import BoardPage from './page/boardlist/BoardPage'; // 이 부분의 임포트가 올바른지 확인하세요
 import Gallery from './page/boardlist/Gallery';
 import SearchPage from './page/SearchPage';
 
@@ -22,11 +22,12 @@ function App() {
         <Route path="/MyPage" element={<MyPage />} />
         <Route path="/signin/findpasswd" element={<PasswdPage />} />
         <Route path="/boardlist/write" element={<Write />} />
-        <Route path="/boardlist/board" element={<Board />} />
+        <Route path="/boardlist/board/:postId" element={<BoardPage />} />
+
+        {/* 경로를 수정했습니다 */}
         <Route path="/boardlist/gallery" element={<Gallery />} />
         <Route path="/search" element={<SearchPage />} />
       </Routes>
-      
     </div>
   );
 }

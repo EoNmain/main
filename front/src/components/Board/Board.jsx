@@ -3,14 +3,11 @@ import axios from 'axios';
 import { useTable } from 'react-table';
 import Table from 'react-bootstrap/Table';
 import BoardListNav from './BoardListNav';
+import { Link } from 'react-router-dom'; // Link 컴포넌트 임포트
 
 export default function Board() {
   // 데이터 상태 및 상태 업데이트 함수 정의
-  const [data, setData] = useState([
-    {
-                                
-    },
-  ]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     async function getData() {
@@ -31,13 +28,13 @@ export default function Board() {
       { Header: '사용자 id', accessor: 'uid' },
       { Header: '제목', accessor: 'title' },
       { Header: '작성자', accessor: 'writer' },
-      { Header: '글 내용', accessor: 'content' },
+      // { Header: '글 내용', accessor: 'content' },
       { Header: '변경 날짜', accessor: 'editDate' },
       { Header: '추천수', accessor: 'recommand' },
       { Header: 'assignment', accessor: 'type' },
-      { Header: '글 순서', accessor: 'file' },
-      { Header: '글 순서', accessor: 'picture' },
-      { Header: '글 순서', accessor: 'check' },
+      // { Header: '글 순서', accessor: 'file' },
+      // { Header: '글 순서', accessor: 'picture' },
+      // { Header: '글 순서', accessor: 'check' },
       { Header: '생성 날짜', accessor: 'createdDate' },
     ],
     []
@@ -71,9 +68,18 @@ export default function Board() {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                  ))}
+                  {row.cells.map((cell) => {
+                    // 'title' 열에만 링크를 적용
+                    return cell.column.id === 'title' ? (
+                      <td {...cell.getCellProps()}>
+                        <Link to={`/boardlist/board/${row.original.pid}`}>
+                          {cell.render('Cell')}
+                        </Link>
+                      </td>
+                    ) : (
+                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                    );
+                  })}
                 </tr>
               );
             })}
@@ -89,12 +95,12 @@ export default function Board() {
             marginLeft: '10px',
           }}
         >
-          <a
-            href="/boardlist/write"
+          <Link
+            to="/boardlist/write"
             className="text-sm font-semibold leading-6 text-semiTitle"
           >
             글 작성 <span aria-hidden="true">&rarr;</span>
-          </a>
+          </Link>
         </div>
       </div>
       <div style={{ height: '900px' }}></div>
