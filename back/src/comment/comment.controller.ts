@@ -9,21 +9,21 @@ export class CommentController {
 
     @Post()
     create(@Body() createCommentDto: CreateCommentDto) {
-        return this.commentService.create(createCommentDto);
+        return this.commentService.createComment(createCommentDto);
     }
 
     @Patch(':cid')
     update(@Param('cid') cid: string, @Body() updateCommentDto: UpdateCommentDto) {
-        return this.commentService.update(+cid, updateCommentDto);
+        return this.commentService.updateComment(+cid, updateCommentDto);
     }
 
     @Delete(':cid')
     remove(@Param('cid') cid: string) {
-        return this.commentService.remove(+cid);
+        return this.commentService.removeComment(+cid);
     }
 
     @Get(':cid')
     find(@Param('cid') cid:string){
-        return this.commentService.findOne(+cid);
+        return this.commentService.findCommentId(+cid);
     }
 }
