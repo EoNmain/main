@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PostRepository } from './post.repository';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
@@ -6,27 +6,25 @@ import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostService {
-  constructor(
-    private readonly postRepository: PostRepository
-  ) {}
+  constructor(private readonly postRepository: PostRepository) {}
 
   async create(dto: CreatePostDto): Promise<Post> {
     return this.postRepository.createPost(dto);
   }
 
-  async search(uid: number): Promise<Post[]>{
+  async search(uid: number): Promise<Post[]> {
     return this.postRepository.search(uid);
   }
-  
-  async findTitle(title: string): Promise<Post[]>{
+
+  async findTitle(title: string): Promise<Post[]> {
     return this.postRepository.findTitle(title);
   }
 
-  async findWriter(writer: string): Promise<Post[]>{
+  async findWriter(writer: string): Promise<Post[]> {
     return this.postRepository.findWriter(writer);
   }
 
-  async findContent(content: string): Promise<Post[]>{
+  async findContent(content: string): Promise<Post[]> {
     return this.postRepository.findContent(content);
   }
 

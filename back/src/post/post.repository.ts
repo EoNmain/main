@@ -56,12 +56,16 @@ export class PostRepository {
   }
 
   async findTitle(title: string): Promise<Post[]>{
-    const posts = await this.repository.find({ where: { title: Like(`%${title}%`) } });
+    const posts = await this.repository.find({
+      where: { title: Like(`%${title}%`) },
+    });
     return posts;
   }
 
   async findWriter(writer: string): Promise<Post[]>{
-    const posts = await this.repository.find({ where: { writer: Like(`%${writer}%`) } });
+    const posts = await this.repository.find({
+      where: { writer: Like(`%${writer}%`) },
+    });
     if (!posts) {
       throw new NotFoundException('Post not found');
     }
@@ -69,7 +73,9 @@ export class PostRepository {
   }
 
   async findContent(content: string): Promise<Post[]>{
-    const posts = await this.repository.find({ where: { content: Like(`%${content}%`) } });
+    const posts = await this.repository.find({
+      where: { content: Like(`%${content}%`) },
+    });
     if (!posts) {
       throw new NotFoundException('Post not found');
     }
