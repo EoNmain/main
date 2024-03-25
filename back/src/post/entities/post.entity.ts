@@ -1,44 +1,52 @@
-import { Comment } from "src/comment/entities/comment.entity";
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Comment } from 'src/comment/entities/comment.entity';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity()
 export class Post {
-  @PrimaryGeneratedColumn({type: 'int'})
+  @PrimaryGeneratedColumn({ type: 'int' })
   pid: number;
 
-  @Column({type: 'int'})
+  @Column({ type: 'int' })
   uid: number;
 
-  @Column({type: 'text'})
+  @Column({ type: 'text' })
   title: string;
 
-  @Column({type: 'varchar'})
+  @Column({ type: 'varchar' })
   writer: string;
 
-  @Column({type: 'text'})
+  @Column({ type: 'text' })
   content: string;
 
-  @CreateDateColumn({type: 'timestamp'})
+  @CreateDateColumn({ type: 'timestamp' })
   createdDate: Date;
 
-  @UpdateDateColumn({type: 'timestamp', default: null})
+  @UpdateDateColumn({ type: 'timestamp', default: null })
   editDate?: Date;
 
-  @Column({type: 'int'})
+  @Column({ type: 'int' })
   recommand: number;
 
-  @Column({type: 'int'})
+  @Column({ type: 'int' })
   check: number;
 
-  @Column({type: 'varchar'})
+  @Column({ type: 'varchar' })
   type: string;
 
-  @Column({type: 'varchar', default: null})
+  @Column({ type: 'varchar', default: null })
   file?: string;
 
-  @Column({type: 'varchar', default: null})
+  @Column({ type: 'varchar', default: null })
   picture?: string;
 
-  @OneToMany(()=> Comment, comment=>comment.post)
-  comments?:Comment[];
+  @OneToMany(() => Comment, (comment) => comment.post)
+  comments?: Comment[];
 }

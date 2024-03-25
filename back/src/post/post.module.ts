@@ -9,10 +9,10 @@ import { typeORMConfigPost } from 'src/configs/typeorm.config';
 @Module({
   imports: [
     TypeOrmModule.forFeature([Post]),
-    TypeOrmModule.forRoot(typeORMConfigPost)
+    TypeOrmModule.forRoot(typeORMConfigPost),
   ],
   exports: [TypeOrmModule, PostRepository],
   providers: [PostService, PostRepository],
   controllers: [PostController],
 })
-export class PostModule {}
+export class PostModule { }

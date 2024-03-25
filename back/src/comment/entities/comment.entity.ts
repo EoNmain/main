@@ -1,5 +1,12 @@
-import { Post } from "src/post/entities/post.entity";
-import { Column, Entity, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColumn, OneToOne, ManyToOne } from "typeorm";
+import { Post } from 'src/post/entities/post.entity';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+} from 'typeorm';
 
 // export class Comment {
 //     cid: number;
@@ -11,25 +18,25 @@ import { Column, Entity, PrimaryGeneratedColumn,CreateDateColumn,UpdateDateColum
 // }
 
 @Entity()
-export class Comment{
-    @PrimaryGeneratedColumn({type:'int'})
-    cid: number;
+export class Comment {
+  @PrimaryGeneratedColumn({ type: 'int' })
+  cid: number;
 
-    @Column({type: 'int'})
-    uid: number;
+  @Column({ type: 'int' })
+  uid: number;
 
-    @ManyToOne(()=> Post, post=> post.comments)
-    post:Post;
+  @ManyToOne(() => Post, (post) => post.comments)
+  post: Post;
 
-    @Column({type: 'varchar'})
-    writer: string;
-    
-    @Column({type: 'text'})
-    content: string;
+  @Column({ type: 'varchar' })
+  writer: string;
 
-    @CreateDateColumn({type: 'timestamp'})
-    createdDate: Date;
+  @Column({ type: 'text' })
+  content: string;
 
-    @UpdateDateColumn({type: 'timestamp', default: null})
-    editDate?: Date;
+  @CreateDateColumn({ type: 'timestamp' })
+  createdDate: Date;
+
+  @UpdateDateColumn({ type: 'timestamp', default: null })
+  editDate?: Date;
 }

@@ -1,8 +1,8 @@
-import { Injectable } from "@nestjs/common";
-import { CommentRepository } from "./comment.repository";
-import { CreateCommentDto } from "./dto/create-comment.dto";
-import { Comment } from "./entities/comment.entity";
-import { UpdateCommentDto } from "./dto/update-comment.dto";
+import { Injectable } from '@nestjs/common';
+import { CommentRepository } from './comment.repository';
+import { CreateCommentDto } from './dto/create-comment.dto';
+import { Comment } from './entities/comment.entity';
+import { UpdateCommentDto } from './dto/update-comment.dto';
 
 // @Injectable()
 // export class CommentService {
@@ -38,10 +38,10 @@ import { UpdateCommentDto } from "./dto/update-comment.dto";
 //   }
 // }
 @Injectable()
-export class CommentService{
-  constructor(private readonly commentRepository:CommentRepository){}
+export class CommentService {
+  constructor(private readonly commentRepository: CommentRepository) {}
 
-  async createComment(dto:CreateCommentDto):Promise<Comment>{
+  async createComment(dto: CreateCommentDto): Promise<Comment> {
     return this.commentRepository.createComment(dto);
   }
 
@@ -58,10 +58,10 @@ export class CommentService{
   }
 
   async updateComment(cid: number, dto: UpdateCommentDto): Promise<Comment> {
-    return this.commentRepository.updateComment(cid,dto);
+    return this.commentRepository.updateComment(cid, dto);
   }
 
-  async removeComment(cid:number){
+  async removeComment(cid: number) {
     return this.commentRepository.removeComment(cid);
   }
 }

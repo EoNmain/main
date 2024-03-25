@@ -3,7 +3,6 @@ import { Comment } from './entities/comment.entity';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { write } from 'fs';
 import { Like, Repository } from 'typeorm';
 
 @Injectable()
@@ -14,7 +13,7 @@ export class CommentRepository {
   ) { }
   async createComment(dto: CreateCommentDto): Promise<Comment> {
     const comment = this.repository.create({
-      ...dto
+      ...dto,
       //Post ID 를 불러와야됨. Param으로?
     });
     await this.repository.save(comment);
@@ -42,9 +41,9 @@ export class CommentRepository {
   }
   async findCommentId(cid: number): Promise<Comment> {
     const comments = await this.repository.findOne({
-      where: { cid }
+      where: { cid },
     });
-    if(!comments){
+    if (!comments) {
       throw new NotFoundException('Invalid Comment ID');
     }
     return comments;
@@ -56,13 +55,13 @@ export class CommentRepository {
   // }
   async updateComment(cid: number, dto: UpdateCommentDto): Promise<Comment> {
     const comments = await this.findCommentId(cid);
-    this.repository.merge(comments,dto);
+    this.repository.merge(comments, dto);
     comments.editDate = new Date();
     await this.repository.save(comments);
     return comments;
   }
 
-  async removeComment(cid:number){
+  async removeComment(cid: number) {
     await this.repository.delete(cid);
   }
   // update(cid: number, updateCommentDto: UpdateCommentDto) {
