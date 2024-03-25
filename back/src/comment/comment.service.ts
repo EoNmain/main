@@ -3,6 +3,7 @@ import { CommentRepository } from './comment.repository';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Comment } from './entities/comment.entity';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { Post } from 'src/post/entities/post.entity';
 
 // @Injectable()
 // export class CommentService {
@@ -63,5 +64,9 @@ export class CommentService {
 
   async removeComment(cid: number) {
     return this.commentRepository.removeComment(cid);
+  }
+
+  async findPostComment(pid:number): Promise<Comment[]> {
+    return this.commentRepository.findPostComment(+pid);
   }
 }

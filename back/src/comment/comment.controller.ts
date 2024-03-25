@@ -6,10 +6,12 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CommentService } from './comment.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
+import { Auth } from 'src/common/decorator/auth.decorator';
 
 @Controller('comment')
 export class CommentController {
@@ -36,5 +38,10 @@ export class CommentController {
   @Get(':cid')
   find(@Param('cid') cid: string) {
     return this.commentService.findCommentId(+cid);
+  }
+
+  @Get()
+  findAll(@Query('pid') pid:number) {
+    return this.commentService.findPostComment(pid);
   }
 }

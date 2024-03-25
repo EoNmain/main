@@ -23,6 +23,9 @@ export class Comment {
   cid: number;
 
   @Column({ type: 'int' })
+  pid: number;
+
+  @Column({ type: 'int' })
   uid: number;
 
   @ManyToOne(() => Post, (post) => post.comments)

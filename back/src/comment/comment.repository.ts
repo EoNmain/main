@@ -4,6 +4,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
+import { Post } from 'src/post/entities/post.entity';
 
 @Injectable()
 export class CommentRepository {
@@ -44,6 +45,16 @@ export class CommentRepository {
       where: { cid },
     });
     if (!comments) {
+      throw new NotFoundException('Invalid Comment ID');
+    }
+    return comments;
+  }
+  async findPostComment(pid:number): Promise<Comment[]> {
+    const comments = await this.repository.find({
+      where: { pid },
+      // relations: ['post'],
+    });
+    if (!comments||comments.length===0) {
       throw new NotFoundException('Invalid Comment ID');
     }
     return comments;
