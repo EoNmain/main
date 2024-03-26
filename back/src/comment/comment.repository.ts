@@ -49,14 +49,14 @@ export class CommentRepository {
     }
     return comments;
   }
-  async findPostComment(pid:number): Promise<Comment[]> {
+  async findPostComment(pid: number): Promise<Comment[]> {
     const comments = await this.repository.find({
       where: { pid },
       // relations: ['post'],
-    });
-    if (!comments||comments.length===0) {
-      throw new NotFoundException('Invalid Comment ID');
-    }
+    }); //프론트에 댓글없을때 반환안한다고 추가함.
+    // if (!comments || comments.length === 0) {
+    //   throw new NotFoundException('Invalid Comment ID');
+    // }
     return comments;
   }
   // findOne(cid: number) {

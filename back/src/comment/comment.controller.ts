@@ -41,7 +41,7 @@ export class CommentController {
   }
 
   @Get()
-  findAll(@Query('pid') pid:number) {
+  findAll(@Query('pid') pid: number) {
     return this.commentService.findPostComment(pid);
   }
 }

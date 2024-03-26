@@ -66,7 +66,7 @@ export class CommentService {
     return this.commentRepository.removeComment(cid);
   }
 
-  async findPostComment(pid:number): Promise<Comment[]> {
+  async findPostComment(pid: number): Promise<Comment[]> {
     return this.commentRepository.findPostComment(+pid);
   }
 }
