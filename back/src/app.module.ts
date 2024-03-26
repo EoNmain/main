@@ -15,7 +15,7 @@ import { ReplyModule } from './reply/reply.module';
 import { LikeModule } from './like/like.module';
 import { CommentModule } from './comment/comment.module';
 import { AdminModule } from './admin/admin.module';
-
+import { UploadsModule } from './uploads/uploads.module';
 
 @Module({
   imports: [
@@ -39,6 +39,7 @@ import { AdminModule } from './admin/admin.module';
     LikeModule,
     CommentModule,
     AdminModule,
+    UploadsModule,
   ],
   controllers: [],
   providers: [],
