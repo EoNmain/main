@@ -9,10 +9,10 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { SigninDto } from './dto/signin-user.dto';
 import { Role, User } from './entities/user.entity';
 import { Auth } from 'src/common/decorator/auth.decorator';
 import { UserIncludeReq } from 'src/common/decorator/user.decorator';
+import { CodeDto } from './dto/code.dto';
 
 @Controller('user')
 export class UserController {
@@ -23,9 +23,9 @@ export class UserController {
     return this.userService.signup(createUserDto);
   }
 
-  @Post('signin')
-  signin(@Body() signinDto: SigninDto) {
-    return this.userService.signin(signinDto);
+  @Post('oauth/github')
+  signin(@Body() codeDto: CodeDto) {
+    return this.userService.oauthGithub(codeDto);
   }
 
   @Auth()

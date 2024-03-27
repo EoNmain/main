@@ -6,8 +6,10 @@ import { Token } from './entities/token.entity';
 import { TokenBlacklist } from './entities/tokenBlacklist.entity';
 import { CryptoManager } from 'src/crypto/provider/crypto-manager';
 import { CommonException } from 'src/common/filter/common.exception';
-import { SigninDto } from './dto/signin-user.dto';
 import { TokenCreator } from 'src/auth/provider/token-creator';
+import { ConfigService } from '@nestjs/config';
+import { EnvKey } from 'src/common/env.validator';
+import { CodeDto } from './dto/code.dto';
 
 @Injectable()
 export class UserService {
@@ -21,9 +23,22 @@ export class UserService {
     private readonly tokenRepository: Repository<Token>,
     @Inject(TokenBlacklist)
     private readonly tokenBlacklistRepository: Repository<TokenBlacklist>,
+    private readonly configService: ConfigService,
   ) {}
 
   async signup(createUserDto: CreateUserDto) {
+    // const res2 = await fetch('https://api.github.com/user/emails', {
+    //   method: 'post',
+    //   headers: {
+    //     Authorization: 'Bearer' + codes.access_token,
+    //     Accept: 'application/json',
+    //   },
+    // });
+    // if (res2.status !== 200) {
+    //   throw new CommonException('AUTH', 'GITHUB_OAUTH_FAILED');
+    // }
+    // const email: string = res2.json()[0].email;
+    // const didEncryptEmail = await this.cryptoManager.encrypt(email);
     const didEncryptEmail = await this.cryptoManager.encrypt(
       createUserDto.email,
     );
@@ -64,8 +79,8 @@ export class UserService {
     return didCreateUser;
   }
 
-  async signin(signinDto: SigninDto) {
-    const didEncryptEmail = await this.cryptoManager.encrypt(signinDto.email);
+  async signin(email: string) {
+    const didEncryptEmail = await this.cryptoManager.encrypt(email);
 
     const user = await this.userRepository.findOne({
       where: {
@@ -105,9 +120,10 @@ export class UserService {
       user,
     });
 
-    user.email = signinDto.email;
+    user.email = email;
 
     return {
+      isUser: true,
       ...user,
       token: {
         accessToken,
@@ -139,6 +155,51 @@ export class UserService {
       await this.tokenRepository.delete(temp.token.id);
     }
     // return user;
+  }
+
+  async oauthGithub(codeDto: CodeDto) {
+    const body = {
+      client_id: this.configService.get(EnvKey.GITHUB_CLIENT_ID),
+      client_secret: this.configService.get(EnvKey.GITHUB_SECRETS),
+      code: codeDto.code,
+    };
+    console.log(JSON.stringify(body));
+    const res = await fetch('https://github.com/login/oauth/access_token', {
+      method: 'post',
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    });
+
+    if (res.status !== 200) {
+      throw new CommonException('AUTH', 'GITHUB_OAUTH_FAILED_ACODE');
+    }
+    const codes = await res.json();
+    const res2 = await fetch('https://api.github.com/user/emails', {
+      method: 'get',
+      headers: {
+        Authorization: 'Bearer ' + (await codes.access_token),
+        Accept: 'application/json',
+      },
+    });
+
+    const json2 = await res2.json();
+    const didEncryptEmail = await this.cryptoManager.encrypt(json2[0].email);
+    const user = await this.userRepository.findOne({
+      where: {
+        email: didEncryptEmail,
+      },
+      relations: ['token'],
+    });
+    if (!user) {
+      return { isUser: false, user: { code: codes } };
+    } else {
+      this.signin(json2[0].email);
+    }
+
+    return codeDto;
   }
 
   async withdrawal(user: User) {
