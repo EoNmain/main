@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
-import Board from "./Board";
-import axios from "axios";
-import { useTable } from "react-table";
-import Table from "react-bootstrap/Table";
+import React, { useState, useEffect } from 'react';
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import Board from './Board';
+import axios from 'axios';
 
 export default function BoardListNavTabs() {
   const [data, setData] = useState([]);
@@ -12,10 +10,10 @@ export default function BoardListNavTabs() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/post");
+        const response = await axios.get('http://localhost:3000/post');
         setData(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
     fetchData();
@@ -26,28 +24,28 @@ export default function BoardListNavTabs() {
       defaultActiveKey="profile"
       id="uncontrolled-tab-example"
       className="mb-3 bg-backDark text-white"
-      style={{ display: "flex", justifyContent: "center" }}
+      style={{ display: 'flex', justifyContent: 'center' }}
     >
       <Tab
         eventKey="기본 게시판"
         title="기본 게시판"
-        style={{ textAlign: "center" }}
+        style={{ textAlign: 'center' }}
       >
-        <Board />
+        <Board type="default" />
       </Tab>
       <Tab
         eventKey="과제 게시판"
         title="과제 게시판"
-        style={{ textAlign: "center" }}
+        style={{ textAlign: 'center' }}
       >
-        <Board />
+        <Board type="assignment" />
       </Tab>
       <Tab
         eventKey="모집해요~"
         title="모집해요"
-        style={{ textAlign: "center" }}
+        style={{ textAlign: 'center' }}
       >
-        <Board />
+        <Board type="recruitment" />
       </Tab>
     </Tabs>
   );

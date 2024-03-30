@@ -5,8 +5,7 @@ import Table from 'react-bootstrap/Table';
 import BoardListNav from './BoardListNav';
 import { Link } from 'react-router-dom'; // Link 컴포넌트 임포트
 
-export default function Board() {
-  // 데이터 상태 및 상태 업데이트 함수 정의
+export default function Board({ type }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -14,24 +13,28 @@ export default function Board() {
       try {
         const url = 'http://localhost:3000/post';
         const response = await axios.get(url);
-        setData(response.data.data); // 데이터베이스에서 받은 데이터로 상태 업데이트
+        // 서버로부터 받은 데이터를 필터링하고, 필터링된 데이터에 대해 순서 재정의
+        const filteredData = response.data.data
+          .filter((item) => item.type === type)
+          .map((item, index) => ({ ...item, displayOrder: index + 1 }));
+        setData(filteredData); // 필터링 및 순서가 재정의된 데이터로 상태 업데이트
       } catch (error) {
         console.error('Post data failed', error);
       }
     }
     getData();
-  }, []);
+  }, [type]);
 
   const columns = useMemo(
     () => [
-      { Header: '글 순서', accessor: 'pid' },
+      { Header: '글 순서', accessor: 'displayOrder' },
       { Header: '사용자 id', accessor: 'uid' },
       { Header: '제목', accessor: 'title' },
       { Header: '작성자', accessor: 'writer' },
       // { Header: '글 내용', accessor: 'content' },
       { Header: '변경 날짜', accessor: 'editDate' },
       { Header: '추천수', accessor: 'recommand' },
-      { Header: 'assignment', accessor: 'type' },
+      // { Header: 'assignment', accessor: 'type' },
       // { Header: '글 순서', accessor: 'file' },
       // { Header: '글 순서', accessor: 'picture' },
       // { Header: '글 순서', accessor: 'check' },
@@ -39,7 +42,6 @@ export default function Board() {
     ],
     []
   );
-
   const tableInstance = useTable({ columns, data });
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
@@ -50,58 +52,60 @@ export default function Board() {
         <BoardListNav />
       </div>
       <div style={{ flex: 4, position: 'relative' }}>
-        <div style={{ height: '100px' }}></div>
         <Table striped className="text-semiTitle" {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render('Header')}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => {
-                    // 'title' 열에만 링크를 적용
-                    return cell.column.id === 'title' ? (
-                      <td {...cell.getCellProps()}>
-                        <Link to={`/boardlist/board/${row.original.pid}`}>
-                          {cell.render('Cell')}
-                        </Link>
-                      </td>
-                    ) : (
-                      <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                    );
-                  })}
+          <div style={{ height: '100px' }}></div>
+          <Table striped className="text-semiTitle" {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th {...column.getHeaderProps()}>
+                      {column.render('Header')}
+                    </th>
+                  ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </Table>
-        <div
-          className="hidden lg:flex lg:flex-1 lg:justify-end"
-          style={{
-            position: 'absolute',
-            left: '0',
-            bottom: '0',
-            marginBottom: '-9px',
-            marginLeft: '10px',
-          }}
-        >
-          <Link
-            to="/boardlist/write"
-            className="text-sm font-semibold leading-6 text-semiTitle"
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+                return (
+                  <tr {...row.getRowProps()}>
+                    {row.cells.map((cell) => {
+                      // 'title' 열에만 링크를 적용
+                      return cell.column.id === 'title' ? (
+                        <td {...cell.getCellProps()}>
+                          <Link to={`/boardlist/board/${row.original.pid}`}>
+                            {cell.render('Cell')}
+                          </Link>
+                        </td>
+                      ) : (
+                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </Table>
+          <div
+            className="hidden lg:flex lg:flex-1 lg:justify-end"
+            style={{
+              position: 'absolute',
+              left: '0',
+              bottom: '0',
+              marginBottom: '-9px',
+              marginLeft: '10px',
+            }}
           >
-            글 작성 <span aria-hidden="true">&rarr;</span>
-          </Link>
-        </div>
+            <Link
+              to="/boardlist/write"
+              className="text-sm font-semibold leading-6 text-semiTitle"
+            >
+              글 작성 <span aria-hidden="true">&rarr;</span>
+            </Link>
+          </div>
+        </Table>
       </div>
       <div style={{ height: '900px' }}></div>
     </div>

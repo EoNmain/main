@@ -8,9 +8,7 @@ export default function Myinfo() {
     async function fetchData() {
       try {
         const url = 'http://localhost:3000/user/1';
-        const response = await axios.get(
-          url
-          );
+        const response = await axios.get(url);
         setUserData(response.data); // 데이터베이스에서 받은 데이터로 상태 업데이트
       } catch (error) {
         console.error('Fetching data failed', error);
@@ -22,7 +20,7 @@ export default function Myinfo() {
 
   return (
     <div className="bg-backDark text-button">
-      <div  className="px-4 sm:px-0">
+      <div className="px-4 sm:px-0">
         <h3 className="text-base font-semibold leading-7 text-white-900">
           내 정보
         </h3>
@@ -31,25 +29,19 @@ export default function Myinfo() {
       <div className="mt-6 border-t border-hori">
         <dl className="divide-y divide-hori">
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-hover">
-              이름
-            </dt>
+            <dt className="text-sm font-medium leading-6 text-hover">이름</dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
               {userData.name}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-hover">
-              학번
-            </dt>
+            <dt className="text-sm font-medium leading-6 text-hover">학번</dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
               {userData.studentnum}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-hover">
-              기수
-            </dt>
+            <dt className="text-sm font-medium leading-6 text-hover">기수</dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
               {userData.period}
             </dd>
@@ -59,13 +51,11 @@ export default function Myinfo() {
               전화번호
             </dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
-              {userData.phonenum}
+              {userData.phone}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-hover">
-              이메일
-            </dt>
+            <dt className="text-sm font-medium leading-6 text-hover">이메일</dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
               {userData.email}
             </dd>
