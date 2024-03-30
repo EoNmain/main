@@ -1,3 +1,4 @@
+//Myinfo.jsx
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
@@ -40,10 +41,23 @@ export default function Myinfo() {
               {userData.studentnum}
             </dd>
           </div>
+
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-hover">시드</dt>
+            <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
+              {userData.sid}
+            </dd>
+          </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-hover">기수</dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
               {userData.period}
+            </dd>
+          </div>
+          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+            <dt className="text-sm font-medium leading-6 text-hover">역할</dt>
+            <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
+              {userData.role}
             </dd>
           </div>
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">

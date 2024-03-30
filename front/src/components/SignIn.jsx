@@ -1,7 +1,58 @@
-import React from "react";
-import Gitcat from "../assets/Gitcat.png";
+//Signin.jsx
+import React from 'react';
+import Gitcat from '../assets/Gitcat.png';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function SignIn() {
+  const [userStatus, setUserStatus] = useState(null);
+  const navigate = useNavigate();
+
+  const getCodeFromUrl = () => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    return params.get('code');
+  };
+
+  const sendCodeToBackend = async (code) => {
+    try {
+      const response = await axios.post('http://localhost:3000/user/oauth', {
+        code,
+      });
+      setUserStatus(response.data);
+      if (response.data.isUser === 'false') {
+        navigate('/signup'); // 새 사용자인 경우, /signup 페이지로 이동
+      }
+    } catch (error) {
+      console.error('Error sending code to backend:', error);
+    }
+  };
+
+  const renderUserStatus = () => {
+    if (!userStatus) {
+      return <div>Loading...</div>;
+    }
+
+    if (userStatus.isUser === 'true') {
+      // 기존 사용자에 대한 처리
+      return <div>Welcome back, user!</div>;
+    } else if (userStatus.isUser === 'false') {
+      // 새로운 사용자에 대한 처리
+      return <div>Welcome, new user!</div>;
+    } else {
+      // 예상치 못한 상태에 대한 처리
+      return <div>Unable to determine user status.</div>;
+    }
+  };
+
+  useEffect(() => {
+    const code = getCodeFromUrl();
+    if (code) {
+      sendCodeToBackend(code);
+    }
+  }, [navigate]);
+
   return (
     <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-backDark">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -71,24 +122,25 @@ function SignIn() {
         </form>
 
         <p className="mt-10 text-center text-sm text-gray-500">
-          <span style={{ fontSize: "20px" }}>SignUp to Github</span>
+          <span style={{ fontSize: '20px' }}>SignUp to Github</span>
           <a
             href="https://github.com/login/oauth/authorize?client_id=06310df2aadaef6f793a&scope=read%3Auser%20user%3Aemail
             "
-            style={{ display: "block", margin: "auto", width: "fit-content" }}
+            style={{ display: 'block', margin: 'auto', width: 'fit-content' }}
           >
             <img
               src={Gitcat}
               alt=""
               style={{
-                display: "inline",
-                verticalAlign: "middle",
-                width: "100px",
+                display: 'inline',
+                verticalAlign: 'middle',
+                width: '100px',
               }}
             />
           </a>
         </p>
       </div>
+      {renderUserStatus()}
     </div>
   );
 }
