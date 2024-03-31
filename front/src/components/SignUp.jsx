@@ -30,7 +30,7 @@ export default function SignUp() {
     if (agreed) {
       // 동의했을 경우에만 요청을 보냅니다.
       try {
-        const response = await axios.post('YOUR_BACKEND_ENDPOINT', formData);
+        const response = await axios.post('/login/userid', formData);
         // 성공시의 처리
         console.log(response.data);
       } catch (error) {
