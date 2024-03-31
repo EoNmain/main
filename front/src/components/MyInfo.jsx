@@ -38,13 +38,6 @@ export default function Myinfo() {
           <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
             <dt className="text-sm font-medium leading-6 text-hover">학번</dt>
             <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
-              {userData.studentnum}
-            </dd>
-          </div>
-
-          <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-            <dt className="text-sm font-medium leading-6 text-hover">시드</dt>
-            <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0">
               {userData.sid}
             </dd>
           </div>

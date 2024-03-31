@@ -1,14 +1,47 @@
 //SignUp.jsx
 import { useState } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import axios from 'axios';
 import { Switch } from '@headlessui/react';
-
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+import classNames from 'classnames';
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ');
+// }
 
 export default function SignUp() {
+  const [formData, setFormData] = useState({
+    name: '',
+    period: '',
+    email: '',
+    phoneNumber: '',
+  });
+
   const [agreed, setAgreed] = useState(false);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (agreed) {
+      // 동의했을 경우에만 요청을 보냅니다.
+      try {
+        const response = await axios.post('YOUR_BACKEND_ENDPOINT', formData);
+        // 성공시의 처리
+        console.log(response.data);
+      } catch (error) {
+        // 에러 처리
+        console.error(error);
+      }
+    } else {
+      // 동의하지 않았을 경우의 처리
+      alert('Please agree to the privacy policy.');
+    }
+  };
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
@@ -38,52 +71,35 @@ export default function SignUp() {
         className="mx-auto mt-16 max-w-xl sm:mt-20"
       >
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
-          <div>
+          <div className="sm:col-span-2">
             <label
-              htmlFor="first-name"
+              htmlFor="company"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              First name
+              이름
             </label>
             <div className="mt-2.5">
               <input
                 type="text"
-                name="first-name"
-                id="first-name"
-                autoComplete="given-name"
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-          <div>
-            <label
-              htmlFor="last-name"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Last name
-            </label>
-            <div className="mt-2.5">
-              <input
-                type="text"
-                name="last-name"
-                id="last-name"
-                autoComplete="family-name"
+                name="name"
+                id="name"
+                autoComplete="organization"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
           <div className="sm:col-span-2">
             <label
-              htmlFor="company"
+              htmlFor="period"
               className="block text-sm font-semibold leading-6 text-gray-900"
             >
-              Company
+              학번
             </label>
             <div className="mt-2.5">
               <input
                 type="text"
-                name="company"
-                id="company"
+                name="period"
+                id="period"
                 autoComplete="organization"
                 className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
@@ -115,22 +131,17 @@ export default function SignUp() {
             </label>
             <div className="relative mt-2.5">
               <div className="absolute inset-y-0 left-0 flex items-center">
-                <label htmlFor="country" className="sr-only">
-                  Country
-                </label>
-                <select
-                  id="country"
-                  name="country"
+                {/* <select
+                  id="phone"
+                  name="phone"
                   className="h-full rounded-md border-0 bg-transparent bg-none py-0 pl-4 pr-9 text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm"
                 >
-                  <option>US</option>
-                  <option>CA</option>
-                  <option>EU</option>
+                  <option>010</option>
                 </select>
                 <ChevronDownIcon
                   className="pointer-events-none absolute right-3 top-0 h-full w-5 text-gray-400"
                   aria-hidden="true"
-                />
+                /> */}
               </div>
               <input
                 type="tel"
@@ -141,7 +152,7 @@ export default function SignUp() {
               />
             </div>
           </div>
-          <div className="sm:col-span-2">
+          {/* <div className="sm:col-span-2">
             <label
               htmlFor="message"
               className="block text-sm font-semibold leading-6 text-gray-900"
@@ -157,7 +168,7 @@ export default function SignUp() {
                 defaultValue={''}
               />
             </div>
-          </div>
+          </div> */}
           <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2">
             <div className="flex h-6 items-center">
               <Switch

@@ -10,7 +10,7 @@ import Write from './page/boardlist/Write';
 import BoardPage from './page/boardlist/BoardPage'; // 이 부분의 임포트가 올바른지 확인하세요
 import Gallery from './page/boardlist/Gallery';
 import SearchPage from './page/SearchPage';
-
+import SignUp from './components/SignUp';
 function App() {
   return (
     <div>
@@ -18,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/boardlist" element={<BoardList />} />
         <Route path="/Signin" element={<SignInPage />} />
+        <Route path="/github-login" element={<SignUp />} />
         <Route path="/Signup" element={<SignUpPage />} />
         <Route path="/MyPage" element={<MyPage />} />
         <Route path="/signin/findpasswd" element={<PasswdPage />} />

@@ -20,28 +20,46 @@ function SignIn() {
       const response = await axios.post('http://localhost:3000/user/oauth', {
         code,
       });
-      setUserStatus(response.data);
-      if (response.data.isUser === 'false') {
-        navigate('/signup'); // 새 사용자인 경우, /signup 페이지로 이동
+
+      if (response.data.result === 'FAIL') {
+        // 여기서 에러를 처리합니다. 예를 들어 사용자에게 에러 메시지를 표시하거나 로그인 페이지로 리다이렉션할 수 있습니다.
+        console.error('Authentication failed:', response.data.error);
+        // 에러 메시지를 상태에 저장하거나, 상황에 맞는 추가 액션을 취합니다.
+        // 예: setUserStatus({ error: response.data.error });
+      } else {
+        setUserStatus(response.data); // 성공적인 응답 데이터를 상태에 저장합니다.
+        if (response.data.isUser === false) {
+          navigate('/signup'); // 새 사용자인 경우, /signup 페이지로 이동합니다.
+        } else {
+          // 기존 사용자일 경우의 처리를 추가합니다.
+          // 예: navigate('/dashboard'); // 또는 로그인 상태를 전역 상태 관리에 반영
+        }
       }
     } catch (error) {
       console.error('Error sending code to backend:', error);
+      // 네트워크 에러나 기타 예외 처리를 할 수 있는 코드를 추가합니다.
+      // 예: setUserStatus({ error: 'Network error or other exception occurred.' });
     }
   };
 
+  // 사용자 상태나 에러를 UI에 반영하는 로직
   const renderUserStatus = () => {
+    // 상태에 에러가 있는 경우 에러 메시지를 표시
+    if (userStatus?.error) {
+      return <div className="error">Error: {userStatus.error}</div>;
+    }
+
+    // 로딩 상태 표시
     if (!userStatus) {
       return <div>Loading...</div>;
     }
 
-    if (userStatus.isUser === 'true') {
-      // 기존 사용자에 대한 처리
+    // 사용자 인증 결과에 따라 메시지 표시
+    if (userStatus.isUser === true) {
       return <div>Welcome back, user!</div>;
-    } else if (userStatus.isUser === 'false') {
-      // 새로운 사용자에 대한 처리
+    } else if (userStatus.isUser === false) {
       return <div>Welcome, new user!</div>;
     } else {
-      // 예상치 못한 상태에 대한 처리
       return <div>Unable to determine user status.</div>;
     }
   };
