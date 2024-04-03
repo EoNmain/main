@@ -1,6 +1,9 @@
 import React from 'react';
 import '../output.css';
 import Layout from '../layout/Layout';
+import axios from "axios";
+
+
 function Passwd() {
   return (
     <Layout>

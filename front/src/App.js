@@ -24,8 +24,6 @@ function App() {
         <Route path="/signin/findpasswd" element={<PasswdPage />} />
         <Route path="/boardlist/write" element={<Write />} />
         <Route path="/boardlist/board/:postId" element={<BoardPage />} />
-
-        {/* 경로를 수정했습니다 */}
         <Route path="/boardlist/gallery" element={<Gallery />} />
         <Route path="/search" element={<SearchPage />} />
       </Routes>
