@@ -13,7 +13,7 @@ const Footer = ({ ratio1, ratio2, ratio3 }) => {
         textAlign: 'center',
         color: 'white',
       }}
-    >
+    >         
       <div style={{ flex: ratio1, lineHeight: '1.5' }}>
         <div>
           <div style={{ height: '10px' }}></div>
