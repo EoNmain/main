@@ -1,7 +1,7 @@
 //Footer.js
 import React from 'react';
 import ScrollToTopButton from '../components/ScrollToTopButton';
-import IconLoad from '../components/IconLoad';
+//import IconLoad from '../components/IconLoad';
 
 const Footer = ({ ratio1, ratio2, ratio3 }) => {
   return (
@@ -37,25 +37,16 @@ const Footer = ({ ratio1, ratio2, ratio3 }) => {
       <div style={{ flex: ratio2, lineHeight: '3' }}>
         <div style={{ height: '10px' }}></div>
         <a href="/boardlist" style={{ color: 'white', textDecoration: 'none' }}>
-          전체게시판
+          게시판
         </a>
         <br />
       </div>
 
-      <div style={{ flex: ratio3, lineHeight: '3' }}>
-        <div style={{ height: '10px' }}></div>
-        <a
-          href="https://github.com"
-          style={{ color: 'white', textDecoration: 'none' }}
-        >
-          모집해요
-        </a>
-      </div>
       <div style={{ flex: ratio3, lineHeight: '2' }}>
         <div style={{ height: '10px' }}></div>
         <h3 style={{ fontSize: '150%' }}>SNS</h3>
         <p></p>
-        <IconLoad />
+        {/* <IconLoad /> */}
       </div>
       <ScrollToTopButton />
       <div style={{ height: '400px' }}></div>
