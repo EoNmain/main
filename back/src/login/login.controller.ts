@@ -4,11 +4,10 @@ import { LoginsDto } from './dto/logins.dto';
 
 @Controller('login')
 export class LoginController {
-    constructor(private readonly loginService: LoginService) { }
+  constructor(private readonly loginService: LoginService) {}
 
-    @Post(':uid')
-    logins(@Param('uid') uid: number, loginDto: LoginsDto) {
-        return this.loginService.login(uid, loginDto);
-    }
+  @Post(':uid')
+  logins(@Param('uid') uid: number, loginDto: LoginsDto) {
+    return this.loginService.login(uid, loginDto);
+  }
 }
-
