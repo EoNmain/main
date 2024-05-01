@@ -22,11 +22,10 @@ export default function SignUp() {
   const sendCodeToBackend = async (code) => {
     try {
       const url = 'http://localhost:3000/user/oauth/github';
-      const response = await axios.post(url,
-      {
+      const response = await axios.post(url, {
         code,
       });
-      
+
       if (response.data.result === 'FAIL') {
         // 여기서 에러를 처리합니다. 예를 들어 사용자에게 에러 메시지를 표시하거나 로그인 페이지로 리다이렉션할 수 있습니다.
         console.error('Authentication failed:', response.data.error);
@@ -69,17 +68,18 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (agreed) {
-      // 동의했을 경우에만 요청을 보냅니다.
       try {
-        const response = await axios.post('http://localhost:3000/login/userid', formData);
-        // 성공시의 처리
+        const response = await axios.post(
+          'http://localhost:3000/login/userid',
+          formData
+        );
         console.log(response.data);
+        // Navigate to '/home' upon successful submission
+        navigate('/home');
       } catch (error) {
-        // 에러 처리
         console.error(error);
       }
     } else {
-      // 동의하지 않았을 경우의 처리
       alert('Please agree to the privacy policy.');
     }
   };

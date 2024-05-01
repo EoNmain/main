@@ -22,7 +22,7 @@ function SignIn() {
   //     {
   //       code,
   //     });
-      
+
   //     if (response.data.result === 'FAIL') {
   //       // 여기서 에러를 처리합니다. 예를 들어 사용자에게 에러 메시지를 표시하거나 로그인 페이지로 리다이렉션할 수 있습니다.
   //       console.error('Authentication failed:', response.data.error);
@@ -67,7 +67,6 @@ function SignIn() {
   //   }
   // };
 
-
   // useEffect(() => {
   //   const code = getCodeFromUrl();
   //   if (code) {
@@ -82,7 +81,6 @@ function SignIn() {
           Sign in to your account
         </h2>
       </div>
-
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" action="#" method="POST">
           <div>
@@ -162,7 +160,7 @@ function SignIn() {
           </a>
         </p>
       </div>
-      {/* {renderUserStatus()} */} {/* 여기 수정함 ㅅㅂ*/ }
+      {/* {renderUserStatus()} */} {/* 여기 수정함 ㅅㅂ*/}
     </div>
   );
 }
