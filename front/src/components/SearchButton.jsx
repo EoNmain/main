@@ -37,7 +37,7 @@ const handleClick = () => {
 
   return (
     <div className="pt-24 bg-backDark">
-      <div style={{ height: "500px" }}></div>
+      <div style={{ height: "100px" }}></div>
       <div
         className="search-bar flex items-center"
         style={{ width: "600px", margin: "0 auto", border: "1px solid #ccc", borderRadius: "9999px" }}
