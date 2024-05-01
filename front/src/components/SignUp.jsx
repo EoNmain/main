@@ -3,11 +3,51 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Switch } from '@headlessui/react';
 import classNames from 'classnames';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 // function classNames(...classes) {
 //   return classes.filter(Boolean).join(' ');
 // }
 
 export default function SignUp() {
+  const [userStatus, setUserStatus] = useState(null);
+  const navigate = useNavigate();
+
+  const getCodeFromUrl = () => {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    return params.get('code');
+  }; //여기까지 ok
+
+  const sendCodeToBackend = async (code) => {
+    try {
+      const url = 'http://localhost:3000/user/oauth/github';
+      const response = await axios.post(url, {
+        code,
+      });
+
+      if (response.data.result === 'FAIL') {
+        // 여기서 에러를 처리합니다. 예를 들어 사용자에게 에러 메시지를 표시하거나 로그인 페이지로 리다이렉션할 수 있습니다.
+        console.error('Authentication failed:', response.data.error);
+        // 에러 메시지를 상태에 저장하거나, 상황에 맞는 추가 액션을 취합니다.
+        // 예: setUserStatus({ error: response.data.error });
+      } else {
+        setUserStatus(response.data); // 성공적인 응답 데이터를 상태에 저장합니다.
+        if (response.data.isUser === false) {
+          navigate('/signup'); // 새 사용자인 경우, /signup 페이지로 이동합니다.
+        } else {
+          // 기존 사용자일 경우의 처리를 추가합니다.
+          // 예: navigate('/dashboard'); // 또는 로그인 상태를 전역 상태 관리에 반영
+          navigate('/signup');
+        }
+      }
+    } catch (error) {
+      console.error('Error sending code to backend:', error);
+      // 네트워크 에러나 기타 예외 처리를 할 수 있는 코드를 추가합니다.
+      // 예: setUserStatus({ error: 'Network error or other exception occurred.' });
+    }
+  };
+  //------------------------------------------------------
   const [formData, setFormData] = useState({
     name: '',
     period: '',
@@ -28,20 +68,28 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (agreed) {
-      // 동의했을 경우에만 요청을 보냅니다.
       try {
-        const response = await axios.post('/login/userid', formData);
-        // 성공시의 처리
+        const response = await axios.post(
+          'http://localhost:3000/login/userid',
+          formData
+        );
         console.log(response.data);
+        // Navigate to '/home' upon successful submission
+        navigate('/home');
       } catch (error) {
-        // 에러 처리
         console.error(error);
       }
     } else {
-      // 동의하지 않았을 경우의 처리
       alert('Please agree to the privacy policy.');
     }
   };
+
+  useEffect(() => {
+    const code = getCodeFromUrl();
+    if (code) {
+      sendCodeToBackend(code);
+    }
+  }, [navigate]); // passive 함수야
 
   return (
     <div className="isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
