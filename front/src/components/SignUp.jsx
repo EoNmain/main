@@ -5,7 +5,6 @@ import { Switch } from '@headlessui/react';
 import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { encryptData } from './Crypto';
 
 export default function SignUp() {
   const [userStatus, setUserStatus] = useState(null);
