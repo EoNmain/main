@@ -5,9 +5,7 @@ import { Switch } from '@headlessui/react';
 import classNames from 'classnames';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(' ');
-// }
+import { encryptData } from './Crypto';
 
 export default function SignUp() {
   const [userStatus, setUserStatus] = useState(null);
@@ -18,36 +16,65 @@ export default function SignUp() {
     const params = new URLSearchParams(search);
     return params.get('code');
   }; //여기까지 ok
-
+  // ---------------------------------------------------여기가 원래 코드
   const sendCodeToBackend = async (code) => {
     try {
-      const url = 'http://localhost:3000/user/oauth/github';
-      const response = await axios.post(url, {
-        code,
-      });
+      // IV 생성
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const encodedText = new TextEncoder().encode(code);
 
+      // 암호화 설정
+      const key = await window.crypto.subtle.importKey(
+        'raw',
+        new Uint8Array(16), // 예제로 사용된 16바이트 키. 실제 환경에서는 안전한 키 관리 필요
+        { name: 'AES-GCM' },
+        false,
+        ['encrypt', 'decrypt']
+      );
+
+      // 암호화 실행
+      const encryptedData = await window.crypto.subtle.encrypt(
+        {
+          name: 'AES-GCM',
+          iv: iv,
+        },
+        key,
+        encodedText
+      );
+
+      // 암호화된 데이터와 IV를 base64로 인코딩하여 전송 준비
+      const encryptedCode = btoa(
+        String.fromCharCode(...new Uint8Array(encryptedData))
+      );
+      const base64IV = btoa(String.fromCharCode(...iv));
+
+      // GET 요청 URL 생성
+      const url = `http://localhost:3000/oauth/github?code=${encodeURIComponent(
+        encryptedCode
+      )}&iv=${encodeURIComponent(base64IV)}`;
+
+      // 서버로 전송
+      const response = await axios.get(url);
+
+      // 서버 응답 처리
       if (response.data.result === 'FAIL') {
-        // 여기서 에러를 처리합니다. 예를 들어 사용자에게 에러 메시지를 표시하거나 로그인 페이지로 리다이렉션할 수 있습니다.
         console.error('Authentication failed:', response.data.error);
-        // 에러 메시지를 상태에 저장하거나, 상황에 맞는 추가 액션을 취합니다.
-        // 예: setUserStatus({ error: response.data.error });
+        alert(
+          `Error: ${response.data.error.message || 'Unknown error occurred'}`
+        );
       } else {
-        setUserStatus(response.data); // 성공적인 응답 데이터를 상태에 저장합니다.
-        if (response.data.isUser === false) {
-          navigate('/signup'); // 새 사용자인 경우, /signup 페이지로 이동합니다.
-        } else {
-          // 기존 사용자일 경우의 처리를 추가합니다.
-          // 예: navigate('/dashboard'); // 또는 로그인 상태를 전역 상태 관리에 반영
-          navigate('/signup');
-        }
+        setUserStatus(response.data); // 성공적인 응답 데이터를 상태에 저장
+        navigate(response.data.isUser ? '/' : 'http://localhost:3000/login'); // 기존 사용자면 홈, 새 사용자면 회원가입 페이지로
       }
     } catch (error) {
       console.error('Error sending code to backend:', error);
-      // 네트워크 에러나 기타 예외 처리를 할 수 있는 코드를 추가합니다.
-      // 예: setUserStatus({ error: 'Network error or other exception occurred.' });
+      alert('Error: ' + (error.message || 'Unknown error occurred'));
+      navigate('/signin'); // 오류 발생 시 로그인 페이지로 리다이렉트
     }
   };
-  //------------------------------------------------------
+
+  // ------------------------------------------------------
+
   const [formData, setFormData] = useState({
     name: '',
     period: '',
@@ -200,23 +227,6 @@ export default function SignUp() {
               />
             </div>
           </div>
-          {/* <div className="sm:col-span-2">
-            <label
-              htmlFor="message"
-              className="block text-sm font-semibold leading-6 text-gray-900"
-            >
-              Message
-            </label>
-            <div className="mt-2.5">
-              <textarea
-                name="message"
-                id="message"
-                rows={4}
-                className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                defaultValue={''}
-              />
-            </div>
-          </div> */}
           <Switch.Group as="div" className="flex gap-x-4 sm:col-span-2">
             <div className="flex h-6 items-center">
               <Switch
