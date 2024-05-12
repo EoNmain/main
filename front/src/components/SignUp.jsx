@@ -53,18 +53,14 @@ export default function SignUp() {
       )}&iv=${encodeURIComponent(base64IV)}`;
 
       // 서버로 전송
-      const response = await axios.get(url);
+      const response = await axios.post(url);
 
-      // 서버 응답 처리
-      if (response.data.result === 'FAIL') {
-        console.error('Authentication failed:', response.data.error);
-        alert(
-          `Error: ${response.data.error.message || 'Unknown error occurred'}`
-        );
-      } else {
-        setUserStatus(response.data); // 성공적인 응답 데이터를 상태에 저장
-        navigate(response.data.isUser ? '/' : 'http://localhost:3000/login'); // 기존 사용자면 홈, 새 사용자면 회원가입 페이지로
-      }
+      console.log(response)
+      //if (response){
+      //  navigate('/');
+      //}
+
+      
     } catch (error) {
       console.error('Error sending code to backend:', error);
       alert('Error: ' + (error.message || 'Unknown error occurred'));
