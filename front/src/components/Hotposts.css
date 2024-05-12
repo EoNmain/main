@@ -1,6 +1,9 @@
 .hotposts-container {
-  right: 5%; /* 오른쪽 가장자리에서 % 떨어진 위치 */
-  width: 25vw; /* 화면 너비의 %를 차지 */
+  position: absolute; /* 절대 위치 설정 */
+  z-index: -10000;
+  top: 5%; /* 상단에서 0px 위치 */
+  right: 3%; /* 오른쪽 가장자리에서 5% 위치 */
+  width: 25vw; /* 반응형 너비, 필요에 따라 조정 */
   max-width: 500px; /* 최대 너비 */
   z-index: 1000;
   display: flex;
@@ -9,6 +12,7 @@
   border: 1px solid #9DC3C1;
   margin: auto;
   color: #ffffff;
+  background-color: #272625; /* 배경색 설정 */
 }
 
 .tabs-buttons-container {
@@ -17,39 +21,41 @@
   width: 100%;
   background-color: #272625; 
   color: #ffffff;
-  font-size: 17px; /* 텍스트 크기 설정 */
-  font-weight: 600; /* 텍스트 굵기 설정 */
+  font-size: 17px; /* 텍스트 크기 */
+  font-weight: 600; /* 텍스트 굵기 */
 }
 
 .tab-button {
   flex-grow: 1;
-  width: 33.33%; /* 각 탭 버튼의 너비를 동일하게 설정 */
+  width: 33.33%; /* 각 버튼을 동일한 너비로 설정 */
   border: 1px solid #9DC3C1;
-  background-color: #272625; /* 배경색을 하얀색으로 설정 */
+  background-color: #272625; /* 버튼 배경색 */
   cursor: pointer;
   margin: 0;
   padding: 10px 0;
   border-right: none;
-  text-align: center; /* 버튼의 텍스트를 가운데 정렬 */
+  text-align: center; /* 버튼 텍스트를 중앙에 정렬 */
   color: #ffffff;
 }
 
 .tab-button:last-child {
-  border-right: 1px solid #9DC3C1; /* 마지막 버튼에만 오른쪽 테두리 추가 */
+  border-right: 1px solid #9DC3C1; /* 마지막 버튼에 오른쪽 테두리 추가 */
 }
 
 .tab-button.active {
-  background-color: #444341;
+  background-color: #444341; /* 활성화된 버튼의 색상 변경 */
 }
 
 .tabs-content-container {
-  width: 100%; /* .hotposts-container의 너비에 맞춤 */
+  width: 100%; /* 컨테이너 너비에 맞춤 */
 }
 
 .tab-content {
   border: 1px solid #272625;
   border-top: none; /* 상단 테두리 제거 */
-  width: 100%; /* .tabs-content-container의 너비에 맞춤 */
-  padding: 20px; /* 내용과 테두리 사이의 여백 추가 */
+  width: 100%; /* 부모 컨테이너에 맞춤 */
+  padding: 20px; /* 내용 주변의 패딩 */
   color: #ffffff;
+  min-height: 150px; /* 최소 높이 설정으로 흔들림 방지 */
+  background-color: #272625; /* 내용의 배경색 */
 }
