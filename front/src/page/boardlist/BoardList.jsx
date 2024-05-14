@@ -4,6 +4,7 @@ import Layout from '../../layout/Layout';
 import BoarderListLayout from '../../components/Board/BoardListLayout'
 import BoardListNavTabs from '../../components/Board/BoardListNavTabs';
 import BoardListPageNum from '../../components/Board/BoardListPageNum';
+import Pagination from '../../components/Board/Pagination';
 function BoardList(){
   return(
 
@@ -12,7 +13,8 @@ function BoardList(){
     
     <BoardListNavTabs />
     
-    <BoardListPageNum />
+    {/* <BoardListPageNum /> */}
+    <Pagination/>
     
   
 

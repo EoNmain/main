@@ -1,0 +1,41 @@
+/* 변수 정의 */
+:root {
+    --pagination-margin-top: 20px; /* 위쪽 여백 조절 */
+  }
+  
+  /* Pagination 스타일 */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--pagination-margin-top); /* 위쪽 여백 적용 */
+  }
+  
+  .pagination li {
+    display: inline-block;
+    margin-right: 5px;
+  }
+  
+  .pagination li a {
+    padding: 8px 16px; /* 크기 조절 */
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333; /* 텍스트 색상 */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+  }
+  
+  .pagination li.active a {
+    background-color: #6c757d; /* 활성 페이지 배경색 */
+    color: #fff; /* 활성 페이지 텍스트 색상 */
+    border-color: #6c757d; /* 활성 페이지 테두리 색상 */
+  }
+  
+  .pagination li a:hover {
+    background-color: #6c757d; /* 호버 시 배경색 변경 */
+    color: #fff; /* 호버 시 텍스트 색상 변경 */
+    border-color: #6c757d; /* 호버 시 테두리 색상 변경 */
+  }
+  
+  .pagination li.disabled a {
+    color: #ccc; /* 비활성 페이지 텍스트 색상 */
+  }
+  
