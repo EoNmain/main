@@ -11,10 +11,16 @@ import {
 import { PostService } from './post.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { post } from './entities/post.entity';
 
 @Controller('post')
 export class PostController {
-  constructor(private readonly postService: PostService) {}
+  constructor(private readonly postService: PostService) { }
+
+  @Get()
+  async all(@Query('page') page:number=1):Promise<post[]>{
+    return await this.postService.paginate(page);
+  }
 
   @Post()
   create(@Body() createPostDto: CreatePostDto) {

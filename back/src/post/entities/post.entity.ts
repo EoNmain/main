@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class Post {
+export class post {
   @PrimaryGeneratedColumn({ type: 'int' })
   pid: number;
 
