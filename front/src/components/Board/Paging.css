@@ -1,6 +1,7 @@
 /* 변수 정의 */
 :root {
     --pagination-margin-top: 20px; /* 위쪽 여백 조절 */
+    --pagination-margin-bottom: 20px; /* 아래쪽 여백 조절 */
   }
   
   /* Pagination 스타일 */
@@ -8,6 +9,7 @@
     display: flex;
     justify-content: center;
     margin-top: var(--pagination-margin-top); /* 위쪽 여백 적용 */
+    margin-bottom: var(--pagination-margin-bottom); /* 아래쪽 여백 추가 */
   }
   
   .pagination li {

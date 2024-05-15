@@ -17,10 +17,10 @@ import { post } from './entities/post.entity';
 export class PostController {
   constructor(private readonly postService: PostService) { }
 
-  @Get()
-  async all(@Query('page') page: number = 1): Promise<post[]> {
-    return await this.postService.paginate(page);
-  }
+  // @Get()
+  // async all(@Query('page') page: number = 1): Promise<post[]> {
+  //   return await this.postService.paginate(page);
+  // }
 
   @Post()
   create(@Body() createPostDto: CreatePostDto) {
@@ -37,6 +37,8 @@ export class PostController {
       return this.postService.findWriter(query.writer);
     } else if (query.content) {
       return this.postService.findContent(query.content);
+    } else if (query.page) {
+      return this.postService.paginate(query.page);
     } else {
       return this.postService.findAll();
     }
