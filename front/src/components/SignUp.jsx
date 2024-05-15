@@ -21,16 +21,16 @@ export default function SignUp() {
       // IV 생성
       const iv = crypto.getRandomValues(new Uint8Array(12));
       const encodedText = new TextEncoder().encode(code);
-
+  
       // 암호화 설정
       const key = await window.crypto.subtle.importKey(
         'raw',
-        new Uint8Array(16), // 예제로 사용된 16바이트 키. 실제 환경에서는 안전한 키 관리 필요
+        new Uint8Array(16), // 실제 환경에서는 안전한 키 관리가 필요
         { name: 'AES-GCM' },
         false,
         ['encrypt', 'decrypt']
       );
-
+  
       // 암호화 실행
       const encryptedData = await window.crypto.subtle.encrypt(
         {
@@ -40,33 +40,41 @@ export default function SignUp() {
         key,
         encodedText
       );
-
+  
       // 암호화된 데이터와 IV를 base64로 인코딩하여 전송 준비
-      const encryptedCode = btoa(
-        String.fromCharCode(...new Uint8Array(encryptedData))
-      );
+      const encryptedCode = btoa(String.fromCharCode(...new Uint8Array(encryptedData)));
       const base64IV = btoa(String.fromCharCode(...iv));
-
-      // GET 요청 URL 생성
-      const url = `http://localhost:3000/oauth/github?code=${encodeURIComponent(
-        encryptedCode
-      )}&iv=${encodeURIComponent(base64IV)}`;
-
-      // 서버로 전송
-      const response = await axios.post(url);
-
-      console.log(response)
-      //if (response){
-      //  navigate('/');
-      //}
-
-      
+  
+      // 서버로 전송할 URL과 데이터 객체 생성
+      const url = 'http://localhost:3000/user/oauth/github';
+      const postData = {
+        code: encryptedCode,
+        //iv: base64IV
+      };
+      console.log(encryptedCode);
+  
+      // 서버로 POST 요청
+      const response = await axios.post(url, postData);
+  
+      console.log('Server response:', response.data);
+      // 응답 처리
+      if (response.data.result === 'FAIL') {
+        console.error('Authentication failed:', response.data.error);
+        alert(`Error: ${response.data.error.message || 'Unknown error occurred'}`); // 오류 발생 시 로그인 페이지로 리디렉트
+      } else {
+        setUserStatus(response.data); // 성공적인 응답 데이터를 상태에 저장
+        navigate(
+          response.data.isUser ? '/' : '/signup' // isUser 값에 따라 조건부 리디렉션
+        );
+      }
     } catch (error) {
       console.error('Error sending code to backend:', error);
       alert('Error: ' + (error.message || 'Unknown error occurred'));
-      navigate('/signin'); // 오류 발생 시 로그인 페이지로 리다이렉트
+      navigate('/signin'); // 오류 발생 시 로그인 페이지로 리디렉트
     }
   };
+  
+  
 
   // ------------------------------------------------------
 
@@ -91,21 +99,30 @@ export default function SignUp() {
     e.preventDefault();
     if (agreed) {
       try {
-        const response = await axios.post(
-          'http://localhost:3000/login/userid',
-          formData
-        );
+        // 사용자가 입력한 데이터를 포함하는 객체를 생성합니다.
+        const postData = {
+          name: formData.name,
+          period: formData.period,
+          email: formData.email,
+          phone: formData.phoneNumber,
+          sid: formData.period // 학번을 sid로 보내는 경우
+        };
+  
+        // 서버로 POST 요청을 보냅니다.
+        const response = await axios.post('http://localhost:3000/user/signup', postData);
+  
         console.log(response.data);
-        // Navigate to '/home' upon successful submission
+        // 성공적인 응답을 받으면 메인 페이지('/home')로 네비게이션합니다.
         navigate('/home');
       } catch (error) {
-        console.error(error);
+        console.error('Error sending user data to backend:', error);
+        alert('Error: ' + (error.response?.data?.message || 'Unknown error occurred'));
       }
     } else {
       alert('Please agree to the privacy policy.');
     }
   };
-
+  
   useEffect(() => {
     const code = getCodeFromUrl();
     if (code) {
