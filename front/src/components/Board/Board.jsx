@@ -34,9 +34,9 @@ export default function Board({ type }) {
       { Header: '등록일', accessor: 'createdDate' },
       { Header: '조회수', accessor: 'views' }, // 임시 필드
       // { Header: '글 내용', accessor: 'content' },
+      { Header: '추천수', accessor: 'recommand' },
       { Header: '사용자 id', accessor: 'uid' },
       { Header: '변경 날짜', accessor: 'editDate' },
-      { Header: '추천수', accessor: 'recommand' },
       // { Header: 'assignment', accessor: 'type' },
       // { Header: '글 순서', accessor: 'file' },
       // { Header: '글 순서', accessor: 'picture' },
