@@ -1,6 +1,7 @@
 // PostDetail.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import LikeButton from "../LikeButton"
 
 const PostDetail = ({ postId }) => {
   const [post, setPost] = useState(null);
@@ -52,7 +53,9 @@ const PostDetail = ({ postId }) => {
       ) : (
         <p style={{color:"white"}}>댓글이 없습니다.</p>
       )}
+      <LikeButton/>
     </div>
+    
   );
 };
 

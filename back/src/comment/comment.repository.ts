@@ -4,7 +4,7 @@ import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Like, Repository } from 'typeorm';
-import { Post } from 'src/post/entities/post.entity';
+import { post } from 'src/post/entities/post.entity';
 
 @Injectable()
 export class CommentRepository {
@@ -15,7 +15,7 @@ export class CommentRepository {
   async createComment(dto: CreateCommentDto): Promise<Comment> {
     const comment = this.repository.create({
       ...dto,
-      //Post ID 를 불러와야됨. Param으로?
+      //post ID 를 불러와야됨. Param으로?
     });
     await this.repository.save(comment);
     return comment;

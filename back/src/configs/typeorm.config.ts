@@ -1,6 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Comment } from 'src/comment/entities/comment.entity';
-import { Post } from 'src/post/entities/post.entity';
+import { post } from 'src/post/entities/post.entity';
 
 export const typeORMConfigPost: TypeOrmModuleOptions = {
   //name: 'default',
@@ -10,7 +10,7 @@ export const typeORMConfigPost: TypeOrmModuleOptions = {
   username: 'root',
   password: 'password',
   database: 'auth_service',
-  entities: [Post, Comment],
+  entities: [post, Comment],
   synchronize: true,
   // logging: true
 };

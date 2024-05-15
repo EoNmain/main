@@ -1,4 +1,4 @@
-import { Post } from 'src/post/entities/post.entity';
+import { post } from 'src/post/entities/post.entity';
 import {
   Column,
   Entity,
@@ -28,8 +28,8 @@ export class Comment {
   @Column({ type: 'int' })
   uid: number;
 
-  @ManyToOne(() => Post, (post) => post.comments)
-  post: Post;
+  @ManyToOne(() => post, (post) => post.comments)
+  post: post;
 
   @Column({ type: 'varchar' })
   writer: string;

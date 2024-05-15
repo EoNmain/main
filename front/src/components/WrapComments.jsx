@@ -5,7 +5,7 @@ export default function WrapComments({comments}) {
     const [input, setInput] = useState(comments)
   
     const editComment = (commentId, editValue) => {
-      let newCommentLists = CommentLists.map(item=>{
+      let newCommentLists = commentLists.map(item=>{
         if(item.id === commentId){
           item.content = editValue;
         }

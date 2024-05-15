@@ -84,10 +84,10 @@ export class PostRepository {
   }
 
   async paginate(page: number = 1): Promise<any> {
-    const take = 1; //한페이지에 담기는 수
+    const take = 5; //한페이지에 담기는 수
     const [posts, total] = await this.repository.findAndCount({
       take,
-      skip: page<=0?page=0:(page-1)*take,//(page - 1) * take,
+      skip: page <= 0 ? (page = 0) : (page - 1) * take, //(page - 1) * take,
     });
     return {
       data: posts,

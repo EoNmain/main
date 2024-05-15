@@ -18,7 +18,7 @@ export class PostController {
   constructor(private readonly postService: PostService) { }
 
   @Get()
-  async all(@Query('page') page:number=1):Promise<post[]>{
+  async all(@Query('page') page: number = 1): Promise<post[]> {
     return await this.postService.paginate(page);
   }
 
