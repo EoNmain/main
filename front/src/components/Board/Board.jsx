@@ -29,17 +29,20 @@ export default function Board({ type }) {
   const columns = useMemo(
     () => [
       { Header: '글 순서', accessor: 'displayOrder' },
-      { Header: '사용자 id', accessor: 'uid' },
-      { Header: '제목', accessor: 'title' },
+      { Header: '제목', accessor: 'title' },      
       { Header: '작성자', accessor: 'writer' },
+      { Header: '등록일', accessor: 'createdDate' },
+      { Header: '조회수', accessor: 'views' }, // 임시 필드
       // { Header: '글 내용', accessor: 'content' },
+      { Header: '사용자 id', accessor: 'uid' },
       { Header: '변경 날짜', accessor: 'editDate' },
       { Header: '추천수', accessor: 'recommand' },
       // { Header: 'assignment', accessor: 'type' },
       // { Header: '글 순서', accessor: 'file' },
       // { Header: '글 순서', accessor: 'picture' },
       // { Header: '글 순서', accessor: 'check' },
-      { Header: '생성 날짜', accessor: 'createdDate' },
+      
+      
     ],
     []
   );
@@ -47,20 +50,21 @@ export default function Board({ type }) {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     tableInstance;
 
-  return (
-    <div style={{ display: 'flex' }}>
-      <div className="text-semiTitle" style={{ flex: 1 }}>
-        <BoardListNav />
-      </div>
-      <div style={{ flex: 4, position: 'relative' }}>
-        <Table striped className="text-semiTitle" {...getTableProps()}>
-          <div style={{ height: '100px' }}></div>
-          <Table striped className="text-semiTitle" {...getTableProps()}>
+    return (
+      <div style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }}>
+          <BoardListNav />
+        </div>
+        <div style={{ flex: 4, position: 'relative' }}>
+          <Table striped {...getTableProps()} style={{ width: '100%' }}>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
                   {headerGroup.headers.map((column) => (
-                    <th {...column.getHeaderProps()}>
+                    <th {...column.getHeaderProps()} style={{
+                      minWidth: column.id === 'title' ? '300px' : undefined,
+                      color: column.id === 'uid' || column.id === 'editDate' ? '#ccc' : 'white'
+                    }}>
                       {column.render('Header')}
                     </th>
                   ))}
@@ -72,43 +76,43 @@ export default function Board({ type }) {
                 prepareRow(row);
                 return (
                   <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      // 'title' 열에만 링크를 적용
-                      return cell.column.id === 'title' ? (
-                        <td {...cell.getCellProps()}>
-                          <Link to={`/boardlist/board/${row.original.pid}`}>
-                            {cell.render('Cell')}
-                          </Link>
-                        </td>
-                      ) : (
-                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                      );
-                    })}
+                    {row.cells.map((cell) => (
+                      <td {...cell.getCellProps()} style={{
+                        color: cell.column.id === 'uid' || cell.column.id === 'editDate' ? '#ccc' : 'white'
+                      }}>
+                        {cell.render('Cell')}
+                      </td>
+                    ))}
                   </tr>
                 );
               })}
             </tbody>
-          </Table>
+          </Table> 
           <div
-            className="hidden lg:flex lg:flex-1 lg:justify-end"
             style={{
               position: 'absolute',
-              left: '0',
-              bottom: '0',
-              marginBottom: '-9px',
-              marginLeft: '10px',
+              right: '10px',
+              bottom: '10px',
+              backgroundColor: 'skyblue',
+              border: '1px solid white',
+              padding: '10px 20px',
+              color: 'white',
+              cursor: 'pointer'
             }}
           >
             <Link
               to="/boardlist/write"
-              className="text-sm font-semibold leading-6 text-semiTitle"
+              style={{
+                color: 'white',
+                textDecoration: 'none'
+              }}
             >
               글 작성 <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
-        </Table>
+        </div>
+        <div style={{ height: '900px' }}></div>
       </div>
-      <div style={{ height: '900px' }}></div>
-    </div>
-  );
+    );
+    
 }

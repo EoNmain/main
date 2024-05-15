@@ -3,7 +3,7 @@ import { PaperClipIcon } from '@heroicons/react/20/solid';
 
 export default function DownLoadForm() {
   return (
-    <dd className="mt-2 text-sm text-semiTitle sm:col-span-2 sm:mt-0">
+    <dd className="mt-2 text-sm text-stone-100 sm:col-span-2 sm:mt-0">
       <ul
         role="list"
         className="divide-y divide-hori rounded-md border border-gray-200"

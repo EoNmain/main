@@ -77,7 +77,7 @@ function SignIn() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-backDark">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-semiTitle">
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-stone-100">
           Sign in to your account
         </h2>
       </div>
@@ -86,7 +86,7 @@ function SignIn() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium leading-6 text-semiTitle"
+              className="block text-sm font-medium leading-6 text-stone-100"
             >
               Email address
             </label>
@@ -106,14 +106,14 @@ function SignIn() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-semiTitle"
+                className="block text-sm font-medium leading-6 text-stone-100"
               >
                 Password
               </label>
               <div className="text-sm">
                 <a
                   href="/signin/findpasswd"
-                  className="font-semibold text-semiTitle hover:text-hover"
+                  className="font-semibold text-stone-100 hover:text-hover"
                 >
                   Forgot password?
                 </a>

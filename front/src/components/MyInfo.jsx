@@ -49,7 +49,7 @@ export default function Myinfo() {
           {userInfoFields.map(field => (
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0" key={field.key} style={{ display: 'flex', alignItems: 'center' }}>
               <dt className="text-sm font-medium leading-6 text-hover" style={{ flex: 1 }}>{field.label}</dt>
-              <dd className="mt-1 text-sm leading-6 text-semiTitle sm:col-span-2 sm:mt-0" style={{ flex: 2 }}>
+              <dd className="mt-1 text-sm leading-6 text-stone-100 sm:col-span-2 sm:mt-0" style={{ flex: 2 }}>
                 {userData[field.key] || '정보 없음'}
               </dd>
               <button

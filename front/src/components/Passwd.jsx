@@ -9,7 +9,7 @@ function Passwd() {
     <Layout>
       <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 bg-backDark">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-semiTitle">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-stone-100">
             Find your Password
           </h2>
         </div>
@@ -19,7 +19,7 @@ function Passwd() {
             <div>
               <label
                 for="id"
-                className="block text-sm font-medium leading-6 text-semiTitle"
+                className="block text-sm font-medium leading-6 text-stone-100"
               >
                 ID
               </label>
@@ -38,7 +38,7 @@ function Passwd() {
             <div>
               <label
                 for="email"
-                className="block text-sm font-medium leading-6 text-semiTitle"
+                className="block text-sm font-medium leading-6 text-stone-100"
               >
                 Email Address
               </label>
