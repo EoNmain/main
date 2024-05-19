@@ -48,10 +48,10 @@ export default function SignUp() {
       // 서버로 전송할 URL과 데이터 객체 생성
       const url = 'http://localhost:3000/user/oauth/github';
       const postData = {
-        code: encryptedCode,
+        code
         //iv: base64IV
       };
-      console.log(encryptedCode);
+      //console.log(encryptedCode); 
   
       // 서버로 POST 요청
       const response = await axios.post(url, postData);

@@ -186,6 +186,7 @@ export class UserService {
     });
 
     const json2 = await res2.json();
+
     const didEncryptEmail = await this.cryptoManager.encrypt(json2[0].email);
     const user = await this.userRepository.findOne({
       where: {
@@ -193,6 +194,7 @@ export class UserService {
       },
       relations: ['token'],
     });
+
     if (!user) {
       return { isUser: false, user: { code: codes } };
     } else {

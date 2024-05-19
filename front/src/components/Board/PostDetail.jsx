@@ -1,7 +1,7 @@
 // PostDetail.jsx
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import LikeButton from "../LikeButton"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import LikeButton from '../LikeButton';
 
 const PostDetail = ({ postId }) => {
   const [post, setPost] = useState(null);
@@ -20,7 +20,7 @@ const PostDetail = ({ postId }) => {
         );
         setComments(commentResponse.data.data);
       } catch (error) {
-        console.error("게시글을 불러오는 데 실패했습니다.", error);
+        console.error('게시글을 불러오는 데 실패했습니다.', error);
       }
     };
 
@@ -39,23 +39,22 @@ const PostDetail = ({ postId }) => {
 
       {/* 댓글 리스트 렌더링 */}
 
-      <h2 style={{color:'whitesmoke'}}>댓글</h2>
+      <h2 style={{ color: 'whitesmoke' }}>댓글</h2>
       {comments.length > 0 ? (
         <ul>
           {comments.map((comment) => (
-            <li key={comment.cid} style={{color:'white'}}>
-              <p style={{color:"white"}}>{comment.content}</p>
+            <li key={comment.cid} style={{ color: 'white' }}>
+              <p style={{ color: 'white' }}>{comment.content}</p>
               <p className="text-muted">작성자: {comment.writer}</p>
               {/* 필요하다면 여기에 더 많은 댓글 정보를 추가합니다. */}
             </li>
           ))}
         </ul>
       ) : (
-        <p style={{color:"white"}}>댓글이 없습니다.</p>
+        <p style={{ color: 'white' }}>댓글이 없습니다.</p>
       )}
-      <LikeButton/>
+      <LikeButton />
     </div>
-    
   );
 };
 
