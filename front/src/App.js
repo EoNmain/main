@@ -12,6 +12,7 @@ import BoardPage from './page/boardlist/BoardPage'; // 이 부분의 임포트�
 import Gallery from './page/boardlist/Gallery';
 import SearchPage from './page/SearchPage';
 import SignUp from './components/SignUp';
+import GalleryPage from './page/boardlist/GalleryPage';
 function App() {
   return (
     <div>
@@ -27,6 +28,7 @@ function App() {
         <Route path="/boardlist/board/:postId" element={<BoardPage />} />
         <Route path="/boardlist/gallery" element={<Gallery />} />
         <Route path="/search" element={<SearchPage />} />
+        <Route path="/boardlist/gallery/:GpostId" element={<GalleryPage />} />
       </Routes>
     </div>
   );

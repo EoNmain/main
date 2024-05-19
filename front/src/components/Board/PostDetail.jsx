@@ -10,6 +10,7 @@ const PostDetail = ({ postId }) => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
+        console.log(postId);
         const response = await axios.get(
           `http://localhost:3000/post/${postId}`
         );
