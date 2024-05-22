@@ -78,7 +78,7 @@ Nest is [MIT licensed](LICENSE).
 
 Mysql
 
-docker run -d —name db.auth.com -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password mysql:8.0.33
+docker run -d --name db.auth.com -p 3306:3306 -e MYSQL_ROOT_PASSWORD=password mysql:8.0.33
 
 docker exec -it db.auth.com /bin/bash
 
@@ -88,17 +88,34 @@ CREATE DATABASE auth_service;
 
 Localstack
 
-docker run —rm -it -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack
+docker run --rm -it -p 4566:4566 -p 4510-4559:4510-4559 localstack/localstack
 
 export AWS_ACCESS_KEY_ID="test"
 export AWS_SECRET_ACCESS_KEY="test"
 export AWS_DEFAULT_REGION="us-east-1"
 
-aws —endpoint-url=http://localhost:4566 kms create-key —description "my_service_master_key"
+aws --endpoint-url=http://localhost:4566 kms create-key --description "my_service_master_key"
 
-aws —endpoint-url=http://localhost:4566 kms list-keys
+aws --endpoint-url=http://localhost:4566 kms list-keys
 
 생성된 키 env 파일에 붙여넣기
+
+Dek 평문 암호화
+
+curl --location 'localhost:3000/crypto/kms/encrypt' \
+--header 'Content-Type: application/json' \
+--data '{
+    "text": "akciaixnsowmfich12340987qwerplki"
+}'
+Env - key 에 붙여넣기
+
+curl --location 'localhost:3000/crypto/kms/encrypt' \
+--header 'Content-Type: application/json' \
+--data '{
+    "text": "abcdef0123456789"
+}'
+
+Evn - iv 에 붙여넣기
 
 ```
 
